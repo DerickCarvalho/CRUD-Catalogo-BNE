@@ -3,25 +3,45 @@
 
     $view_order = $_REQUEST['order'];
     $prod_category = $_REQUEST['category'];
+    $prod_brand = $_REQUEST['brand'];
 
-    if ($prod_category == 'acustic_guitar') {
-        $startQuery = "SELECT * FROM products WHERE prod_category='acustic_guitar'";
-        $categoryTitle = "Violões";
-    }
-    else if ($prod_category == "guitar") {
-        $startQuery = "SELECT * FROM products WHERE prod_category='guitar'";
-        $categoryTitle = "Guitarras";
-    }
-    else if ($prod_category == "keyboard_instruments") {
-        $startQuery = "SELECT * FROM products WHERE prod_category='keyboard_instruments'";
-        $categoryTitle = "Teclas";
-    }
-    else if ($prod_category == "drums") {
-        $startQuery = "SELECT * FROM products WHERE prod_category='drums'";
-        $categoryTitle = "Baterias";
+    if ($prod_brand == "null") {
+        if ($prod_category == 'acustic_guitar') {
+            $startQuery = "SELECT * FROM products WHERE prod_category='acustic_guitar'";
+            $categoryTitle = "Violões";
+        }
+        else if ($prod_category == "guitar") {
+            $startQuery = "SELECT * FROM products WHERE prod_category='guitar'";
+            $categoryTitle = "Guitarras";
+        }
+        else if ($prod_category == "keyboard_instruments") {
+            $startQuery = "SELECT * FROM products WHERE prod_category='keyboard_instruments'";
+            $categoryTitle = "Teclas";
+        }
+        else if ($prod_category == "drums") {
+            $startQuery = "SELECT * FROM products WHERE prod_category='drums'";
+            $categoryTitle = "Baterias";
+        } else {
+            $startQuery = "SELECT * FROM products WHERE prod_category='accessories'";
+            $categoryTitle = "Acessórios";
+        }
     } else {
-        $startQuery = "SELECT * FROM products WHERE prod_category='accessories'";
-        $categoryTitle = "Acessórios";
+        if ($prod_brand == 'crafter') {
+            $startQuery = "SELECT * FROM products WHERE brand='crafter'";
+            $categoryTitle = "Crafter";
+        }
+        else if ($prod_brand == 'strinberg') {
+            $startQuery = "SELECT * FROM products WHERE brand='strinberg'";
+            $categoryTitle = "Strinberg";
+        }
+        else if ($prod_brand == 'yamaha') {
+            $startQuery = "SELECT * FROM products WHERE brand='yamaha'";
+            $categoryTitle = "Yamaha";
+        }
+        else {
+            $startQuery = "SELECT * FROM products WHERE brand='tagima'";
+            $categoryTitle = "Tagima";
+        }
     }
 
     if ($view_order == 0) {
@@ -68,23 +88,23 @@
         
         <div class="fut-header flex-center">
             <nav style="padding-top: 7px; padding-bottom: 7px;" class="flex-row-space-between space">
-                <a href="./prod-view.php?category=acustic_guitar&order=0" class="default-category">
+                <a href="./prod-view.php?brand=null&category=acustic_guitar&order=0" class="default-category">
                     Violões
                 </a>
 
-                <a href="./prod-view.php?category=guitar&order=0" class="default-category">
+                <a href="./prod-view.php?brand=null&category=guitar&order=0" class="default-category">
                     Guitarras
                 </a>
 
-                <a href="./prod-view.php?category=keyboard_instruments&order=0" class="default-category">
+                <a href="./prod-view.php?brand=null&category=keyboard_instruments&order=0" class="default-category">
                     Instrumentos de Teclas
                 </a>
 
-                <a href="./prod-view.php?category=drums&order=0" class="default-category">
+                <a href="./prod-view.php?brand=null&category=drums&order=0" class="default-category">
                     Baterias
                 </a>
 
-                <a href="./prod-view.php?category=accessories&order=0" class="default-category">
+                <a href="./prod-view.php?brand=null&category=accessories&order=0" class="default-category">
                     Acessórios
                 </a>
             </nav>
@@ -106,23 +126,23 @@
 
             <p style="width: 100%; background-color: #868686; padding: 1px; margin: 5px 0;"></p>
 
-            <a href="/prod-view.php?category=acustic_guitar&order=0" class="transform-in-button flex-row-center width-100">
+            <a href="/prod-view.php?brand=null&category=acustic_guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Violões
             </a>
 
-            <a href="./prod-view.php?category=guitar&order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?brand=null&category=guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Guitarras
             </a>
 
-            <a href="./prod-view.php?category=keyboard_instruments&order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?brand=null&category=keyboard_instruments&order=0" class="transform-in-button flex-row-center width-100">
                 Instrumentos de Teclas
             </a>
 
-            <a href="./prod-view.php?category=drums&order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?brand=null&category=drums&order=0" class="transform-in-button flex-row-center width-100">
                 Baterias
             </a>
 
-            <a href="./prod-view.php?category=accessories&order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?brand=null&category=accessories&order=0" class="transform-in-button flex-row-center width-100">
                 Acessórios
             </a>
         </nav>
@@ -300,7 +320,12 @@
 
         document.getElementById('order-button').addEventListener('click', () => {
             let orderValue = document.getElementById('order').value;
-            window.location.href = `./prod-view.php?category=<?php print $prod_category ?>&order=${orderValue}`;
+
+            <?php if ($prod_brand != "null") { ?>
+                window.location.href = `./prod-view.php?brand=<?php print $prod_brand ?>&category=null&order=${orderValue}`;
+            <?php } else {?>
+                window.location.href = `./prod-view.php?brand=null&category=<?php print $prod_category ?>&order=${orderValue}`;                
+            <?php } ?>
         });
     </script>
 </body>
