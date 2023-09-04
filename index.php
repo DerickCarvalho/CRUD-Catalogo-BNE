@@ -38,23 +38,23 @@
         
         <div class="fut-header flex-center">
             <nav style="padding-top: 7px; padding-bottom: 7px;" class="flex-row-space-between space">
-                <a href="./prod-view.php?category=acustic_guitar?order=0" class="default-category">
+                <a href="./prod-view.php?category=acustic_guitar&order=0" class="default-category">
                     Violões
                 </a>
 
-                <a href="./prod-view.php?category=guitar?order=0" class="default-category">
+                <a href="./prod-view.php?category=guitar&order=0" class="default-category">
                     Guitarras
                 </a>
 
-                <a href="./prod-view.php?category=keyboard_instruments?order=0" class="default-category">
+                <a href="./prod-view.php?category=keyboard_instruments&order=0" class="default-category">
                     Instrumentos de Teclas
                 </a>
 
-                <a href="./prod-view.php?category=drums?order=0" class="default-category">
+                <a href="./prod-view.php?category=drums&order=0" class="default-category">
                     Baterias
                 </a>
 
-                <a href="./prod-view.php?category=accessories?order=0" class="default-category">
+                <a href="./prod-view.php?category=accessories&order=0" class="default-category">
                     Acessórios
                 </a>
             </nav>
@@ -76,23 +76,23 @@
 
             <p style="width: 100%; background-color: #868686; padding: 1px; margin: 5px 0;"></p>
 
-            <a href="./prod-view.php?category=acustic_guitar?order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?category=acustic_guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Violões
             </a>
 
-            <a href="./prod-view.php?category=guitar?order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?category=guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Guitarras
             </a>
 
-            <a href="./prod-view.php?category=keyboard_instruments?order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?category=keyboard_instruments&order=0" class="transform-in-button flex-row-center width-100">
                 Instrumentos de Teclas
             </a>
 
-            <a href="./prod-view.php?category=drums?order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?category=drums&order=0" class="transform-in-button flex-row-center width-100">
                 Baterias
             </a>
 
-            <a href="./prod-view.php?category=accessories?order=0" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?category=accessories&order=0" class="transform-in-button flex-row-center width-100">
                 Acessórios
             </a>
         </nav>
