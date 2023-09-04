@@ -1,3 +1,7 @@
+<?php
+    include("connection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -193,11 +197,30 @@ Controles: Potenciômetro de Volume (1), Potenciômetro de Tonalidade (1) e Chav
             <p>Developed by <a href="https://github.com/DerickCarvalho">Derick Carvalho</a></p>
         </div>
 
+        <?php
+            if (isset($_POST['sugest'])) {
+                $user_name = $_POST['name'];
+                $user_sugest = $_POST['text_sugest'];
+
+                if ($user_name != "" && $user_sugest != "") {
+                    $sugQuery = "INSERT INTO sugests (user_name, user_sugest, status) VALUES ('$user_name','$user_sugest', 0)";
+                    try {
+                        $cadSugest = $connect->query($sugQuery);
+                        print "<script>alert('Agradecemos sua sugestão!');</script>";
+                    } catch (\Throwable $th) {
+                        print "<script>alert('Não foi possível cadastrar sua sugestão!');</script>";
+                    }
+                } else {
+                    print "<script>alert('Campos vazios não são permitidos!');</script>";
+                }
+            }
+        ?>
+
         <form class="sugest-form flex-column-center" action="" method="post">
             <h3>Envie-nos uma sugestão</h3>
-            <input type="text" name="name" id="name" placeholder="Digite seu nome" maxlength="30">
-            <textarea name="nome" id="nome" cols="30" rows="5" placeholder="Digite sua sugestão"></textarea>
-            <input style="width: 30%;" class="default-button" type="submit" value="Enviar">
+            <input type="text" name="name" id="name" placeholder="Digite seu nome" maxlength="30" required maxlength="30">
+            <textarea name="text_sugest" id="text_sugest" cols="30" rows="5" placeholder="Digite sua sugestão" required maxlength="400"></textarea>
+            <input style="width: 30%;" class="default-button" name="sugest" type="submit" value="Enviar">
         </form>
     </footer>
     <script>
@@ -214,7 +237,7 @@ Controles: Potenciômetro de Volume (1), Potenciômetro de Tonalidade (1) e Chav
 
         /* GENERAL FUNCIONALITY */
         document.getElementById('button-logo').addEventListener('click', () => {
-            window.location.href = './index.html';
+            window.location.href = './index.php';
         });
     </script>
 </body>
