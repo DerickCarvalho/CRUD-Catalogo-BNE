@@ -259,8 +259,9 @@ header {
     font-size: 18px;
 }
 .other-prods {
-    flex-wrap: wrap;
+    width: 100%;
     margin-bottom: 100px;
+    overflow: scroll;
 }
 .prod {
     width: 300px;

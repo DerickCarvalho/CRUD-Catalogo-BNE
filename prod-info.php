@@ -1,5 +1,11 @@
 <?php
     include("connection.php");
+
+    $prodId = $_REQUEST['id'];
+
+    $query = "SELECT * FROM products WHERE id=$prodId";
+    $search = $connect->query($query);
+    $resSearch = $search->fetch_object();
 ?>
 
 <!DOCTYPE html>
@@ -34,23 +40,23 @@
         
         <div class="fut-header flex-center">
             <nav style="padding-top: 7px; padding-bottom: 7px;" class="flex-row-space-between space">
-                <a href="./prod-view.html" class="default-category">
+                <a href="./prod-view.php?brand=null&category=acustic_guitar&order=0" class="default-category">
                     Violões
                 </a>
 
-                <a href="./prod-view.html" class="default-category">
+                <a href="./prod-view.php?brand=null&category=guitar&order=0" class="default-category">
                     Guitarras
                 </a>
 
-                <a href="./prod-view.html" class="default-category">
-                    Instrumentos de Corda
+                <a href="./prod-view.php?brand=null&category=keyboard_instruments&order=0" class="default-category">
+                    Instrumentos de Teclas
                 </a>
 
-                <a href="./prod-view.html" class="default-category">
-                    Encordoamentos
+                <a href="./prod-view.php?brand=null&category=drums&order=0" class="default-category">
+                    Baterias
                 </a>
 
-                <a href="./prod-view.html" class="default-category">
+                <a href="./prod-view.php?brand=null&category=accessories&order=0" class="default-category">
                     Acessórios
                 </a>
             </nav>
@@ -72,23 +78,23 @@
 
             <p style="width: 100%; background-color: #868686; padding: 1px; margin: 5px 0;"></p>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?brand=null&category=acustic_guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Violões
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?brand=null&category=guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Guitarras
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
-                Instrumentos de Corda
+            <a href="./prod-view.php?brand=null&category=keyboard_instruments&order=0" class="transform-in-button flex-row-center width-100">
+                Instrumentos de Teclas
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
-                Encordoamentos
+            <a href="./prod-view.php?brand=null&category=drums&order=0" class="transform-in-button flex-row-center width-100">
+                Baterias
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?brand=null&category=accessories&order=0" class="transform-in-button flex-row-center width-100">
                 Acessórios
             </a>
         </nav>
@@ -98,16 +104,15 @@
     <main class="flex-colum-center width-100">        
         <section class="prod-presentation flex-row-space-between">
             <div class="prod-container flex-row-center">
-                <img src="./assets/img/guitar.jpg" alt="">
+                <img src="<?php print $resSearch->img_url; ?>" alt="">
             </div>
 
             <div class="price-infos flex-column-left width-100">
-                <h1>Guitarra Strinberg SGS250 Sunburst</h1>
-                <p class="price">R$ 1899,99</p>
-                <p class="price-desc">10x de R$ 209,90</p>
-                <p class="price-desc">R$ 1849,99 para Retirar na Loja</p>
-                <p class="price-desc">R$ 1899,99 no Boleto Bancário</p>
-                <p class="price-desc">R$ 1899,99 no Pix</p>
+                <h1><?php print $resSearch->prod_name; ?></h1>
+                <p class="price">R$ <?php print $resSearch->prod_price; ?></p>
+                <p class="price-desc">10x de R$ <?php print $resSearch->parcel_price; ?></p>
+                <p class="price-desc">R$ <?php print $resSearch->prod_price; ?> no Boleto Bancário</p>
+                <p class="price-desc">R$ <?php print $resSearch->prod_price; ?> no Pix</p>
                 <input class="buy-button" type="button" value="Verificar Disponibilidade">                    
                 <p class="division-line"></p>                            
             </div>
@@ -124,34 +129,21 @@
             <h1 style="margin: 30px 0;" class="mid-title flex-row-left">Especificações</h1>
 
             <pre class="especs">
-Formato do Corpo: Super Strato.
-Madeira do Corpo: Basswood Sólido.
-Tampo: Quilted Maple Veneer.
-Acabamento: Brilhante.
-Braço: Maple.
-Construção: Bolt-On Neck (Junção Parafusada).
-Escala: Maple 25,5".
-Marcações: Dots.
-Tensor: Sim. Bi-Lateral.
-Nut (Capo Traste): 43mm.
-Número de Trastes: 24.
-Encordoamento: .09 / .042.
-Número de Cordas: 6.
-Ponte: Floyd Rose Special
-Captador Ponte: Humbucker Passivo.
-Captador Meio: N/A.
-Captador Braço: Humbucker Passivo.
-Jack: P10.
-Tarraxas: Cromada (Die Cast).
-Escudo: N/A.
-Utilização/Mão: Destro.
-Controles: Potenciômetro de Volume (1), Potenciômetro de Tonalidade (1) e Chave Seletora de 3 Posições
+<?php print nl2br($resSearch->prod_specs); ?>
             </pre>
         </section>
 
         <h1 style="margin-bottom: 50px;" class="mid-title width-100 flex-row-center space">Produtos Semelhantes</h1>
 
+        <?php 
+            $simQuery = "SELECT * FROM products WHERE prod_category='$resSearch->prod_category' AND id!=$resSearch->id";
+            $similar = $connect->query($simQuery);
+            $resSim = $similar->num_rows;
+        ?>
+
         <section class="other-prods flex-row-center">
+
+            <?php if ($resSim == 0) { ?>
 
             <a href="./prod-info.html" class="prod flex-colum-center">
                 <img src="./assets/img/guitar.jpg" alt="">
@@ -187,6 +179,15 @@ Controles: Potenciômetro de Volume (1), Potenciômetro de Tonalidade (1) e Chav
                 <h3 class="price">R$ 1899,99</h3>
                 <p class="price-desc">10x de 209,99</p>
             </a>
+
+            <?php } else { while($showSimilars = $similar->fetch_object()) { ?>
+                <a href="./prod-info.php?id=<?php print $showSimilars->id; ?>" class="prod flex-colum-center">
+                    <img src="<?php print $showSimilars->img_url; ?>" alt="">
+                    <p class="prod-title"><?php print $showSimilars->prod_name; ?></p>
+                    <h3 class="price">R$ <?php print $showSimilars->prod_price ?></h3>
+                    <p class="price-desc">10x de <?php print $showSimilars->parcel_price ?></p>
+                </a>
+            <?php }} ?>
         </section>       
     </main>
 
