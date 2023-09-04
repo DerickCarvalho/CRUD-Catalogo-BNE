@@ -1,5 +1,40 @@
 <?php
     include("connection.php");
+
+    $view_order = $_REQUEST['order'];
+    $prod_category = $_REQUEST['category'];
+
+    if ($prod_category == 'acustic_guitar') {
+        $startQuery = "SELECT * FROM products WHERE prod_category='acustic_guitar'";
+        $categoryTitle = "Violões";
+    }
+    else if ($prod_category == "guitar") {
+        $startQuery = "SELECT * FROM products WHERE prod_category='guitar'";
+        $categoryTitle = "Guitarras";
+    }
+    else if ($prod_category == "keyboard_instruments") {
+        $startQuery = "SELECT * FROM products WHERE prod_category='keyboard_instruments'";
+        $categoryTitle = "Teclas";
+    }
+    else if ($prod_category == "drums") {
+        $startQuery = "SELECT * FROM products WHERE prod_category='drums'";
+        $categoryTitle = "Baterias";
+    } else {
+        $startQuery = "SELECT * FROM products WHERE prod_category='accessories'";
+        $categoryTitle = "Acessórios";
+    }
+
+    if ($view_order == 0) {
+        $query = "$startQuery ORDER BY id DESC";
+    } 
+    else if ($view_order == 1) {
+        $query = "$startQuery ORDER BY prod_price ASC";
+    } else {
+        $query = "$startQuery ORDER BY prod_price DESC";        
+    }
+
+    $search = $connect->query($query);
+    $resSearch = $search->num_rows;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -33,23 +68,23 @@
         
         <div class="fut-header flex-center">
             <nav style="padding-top: 7px; padding-bottom: 7px;" class="flex-row-space-between space">
-                <a href="" class="default-category">
+                <a href="./prod-view.php?category=acustic_guitar&order=0" class="default-category">
                     Violões
                 </a>
 
-                <a href="" class="default-category">
+                <a href="./prod-view.php?category=guitar&order=0" class="default-category">
                     Guitarras
                 </a>
 
-                <a href="" class="default-category">
-                    Instrumentos de Corda
+                <a href="./prod-view.php?category=keyboard_instruments&order=0" class="default-category">
+                    Instrumentos de Teclas
                 </a>
 
-                <a href="" class="default-category">
-                    Encordoamentos
+                <a href="./prod-view.php?category=drums&order=0" class="default-category">
+                    Baterias
                 </a>
 
-                <a href="" class="default-category">
+                <a href="./prod-view.php?category=accessories&order=0" class="default-category">
                     Acessórios
                 </a>
             </nav>
@@ -71,23 +106,23 @@
 
             <p style="width: 100%; background-color: #868686; padding: 1px; margin: 5px 0;"></p>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
+            <a href="/prod-view.php?category=acustic_guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Violões
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?category=guitar&order=0" class="transform-in-button flex-row-center width-100">
                 Guitarras
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
-                Instrumentos de Corda
+            <a href="./prod-view.php?category=keyboard_instruments&order=0" class="transform-in-button flex-row-center width-100">
+                Instrumentos de Teclas
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
-                Encordoamentos
+            <a href="./prod-view.php?category=drums&order=0" class="transform-in-button flex-row-center width-100">
+                Baterias
             </a>
 
-            <a href="" class="transform-in-button flex-row-center width-100">
+            <a href="./prod-view.php?category=accessories&order=0" class="transform-in-button flex-row-center width-100">
                 Acessórios
             </a>
         </nav>
@@ -96,26 +131,22 @@
     <main class="flex-colum-center">        
 
         <div class="flex-row-space-between space">
-            <h1 class="mid-title">Guitarras</h1>
+            <h1 class="mid-title"><?php print $categoryTitle ?></h1>
             <div class="filter flex-row-right width-100">
                 <p>Ordenar por:</p>
                 <select class="default-select" name="order" id="order">
-                    <option value="novidades">Novidades</option>
-                    <option value="lowprice">Menor Preço</option>
-                    <option value="topprice">Maior Preço</option>
+                    <option value="0">Novidades</option>
+                    <option value="1">Menor Preço</option>
+                    <option value="2">Maior Preço</option>
                 </select>
-                <input class="default-button" type="button" value="Ordenar">
+                <input id="order-button" class="default-button" type="button" value="Ordenar">
             </div>
         </div>
 
         <section class="flex-column-center">
             <div class="products flex-row-center">
-                <a href="./prod-info.html" class="prod text-center flex-colum-center">
-                    <img src="./assets/img/guitar.jpg" alt="">
-                    <p class="prod-title">Guitarra Strinberg SGS250 Sunburst</p>
-                    <h3 class="price">R$ 1899,99</h3>
-                    <p class="price-desc">10x de 209,99</p>
-                </a>
+
+                <?php if ($resSearch == 0) { ?>
 
                 <a href="./prod-info.html" class="prod text-center flex-colum-center">
                     <img src="./assets/img/guitar.jpg" alt="">
@@ -193,8 +224,24 @@
                     <h3 class="price">R$ 1899,99</h3>
                     <p class="price-desc">10x de 209,99</p>
                 </a>
+
+                <a href="./prod-info.html" class="prod text-center flex-colum-center">
+                    <img src="./assets/img/guitar.jpg" alt="">
+                    <p class="prod-title">Guitarra Strinberg SGS250 Sunburst</p>
+                    <h3 class="price">R$ 1899,99</h3>
+                    <p class="price-desc">10x de 209,99</p>
+                </a>
+                <?php } else { while($loadProds = $search->fetch_object()){ ?>
+                    
+                    <a href="./prod-info.php?id=<?php print $loadProds->id; ?>" class="prod text-center flex-colum-center">
+                        <img src="<?php print $loadProds->img_url ?>" alt="">
+                        <p class="prod-title"><?php print $loadProds->prod_name; ?></p>
+                        <h3 class="price">R$ <?php print $loadProds->prod_price; ?></h3>
+                        <p class="price-desc">10x de R$ <?php print $loadProds->parcel_price; ?></p>
+                    </a>
+
+                <?php }} ?>
             </div>
-            <input style="margin-bottom: 50px;" class="default-button" type="button" value="Carregar Mais">
         </section>
     </main>
 
@@ -231,6 +278,7 @@
             <input style="width: 30%;" class="default-button" name="sugest" type="submit" value="Enviar">
         </form>
     </footer>
+    
     <script>
         /* MENU HAMBURGUER FUNCIONALITY */
         let mobileMenu = document.getElementById('mobile-menu');
@@ -246,6 +294,13 @@
         /* GENERAL FUNCIONALITY */
         document.getElementById('button-logo').addEventListener('click', () => {
             window.location.href = './index.php';
+        });
+
+        /* ORDER BUTTON */
+
+        document.getElementById('order-button').addEventListener('click', () => {
+            let orderValue = document.getElementById('order').value;
+            window.location.href = `./prod-view.php?category=<?php print $prod_category ?>&order=${orderValue}`;
         });
     </script>
 </body>
