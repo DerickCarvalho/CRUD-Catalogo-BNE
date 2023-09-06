@@ -113,7 +113,7 @@
                 <p class="price-desc">10x de R$ <?php print $resSearch->parcel_price; ?></p>
                 <p class="price-desc">R$ <?php print $resSearch->prod_price; ?> no Boleto Bancário</p>
                 <p class="price-desc">R$ <?php print $resSearch->prod_price; ?> no Pix</p>
-                <input class="buy-button" type="button" value="Verificar Disponibilidade">                    
+                <input id="buy" class="buy-button" type="button" value="Verificar Disponibilidade">                    
                 <p class="division-line"></p>                            
             </div>
         </section>
@@ -121,16 +121,14 @@
         <section class="description flex-column-left space">
             <h1 style="margin-bottom: 50px;" class="mid-title flex-row-left">Descrição</h1>
             <p class="desc-summary">
-                A Strinberg é uma marca de instrumentos de cordas, como guitarras, contrabaixos, violões e baixolões que vem a 
-                cada ano ganhando espaço no cenário nacional. Com seus produtos de ótima qualidade sonora e incrível custo/benefício, 
-                os instrumentos Strinberg são bem recebidos, em especial, pelos músicos iniciantes, mas também por profissionais.
+<?php print nl2br($resSearch->prod_desc); ?>
             </p>
             
             <h1 style="margin: 30px 0;" class="mid-title flex-row-left">Especificações</h1>
 
-            <pre class="especs">
+            <p class="especs">
 <?php print nl2br($resSearch->prod_specs); ?>
-            </pre>
+            </p>
         </section>
 
         <h1 style="margin-bottom: 50px;" class="mid-title width-100 flex-row-center space">Produtos Semelhantes</h1>
@@ -239,6 +237,17 @@
         /* GENERAL FUNCIONALITY */
         document.getElementById('button-logo').addEventListener('click', () => {
             window.location.href = './index.php';
+        });
+
+        <?php
+            $adminSearch = "SELECT * FROM adm_info WHERE first_adm=1";
+            $exeAdmSearch = $connect->query($adminSearch);
+            $loadAdmResults = $exeAdmSearch->fetch_object();
+        ?>
+
+        /* BUY BUTTOM */
+        document.getElementById('buy').addEventListener('click', () => {
+            location.href = 'https://api.whatsapp.com/send/?phone=55<?php print $loadAdmResults->cell_number; ?>&text=Vim através site Dom of Music, e gostaria de saber a disponibilidade do <?php print $resSearch->prod_name; ?>!&type=phone_number&app_absent=0';
         });
     </script>
 </body>
