@@ -201,6 +201,7 @@ header img {
 .menu-aside {
     background-color: #868686;
     height: 100vh;
+    border-radius: 0 0 10px 0;
 }
 .content h1 {
     margin-bottom: 50px;

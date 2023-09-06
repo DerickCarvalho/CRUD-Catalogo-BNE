@@ -4,6 +4,10 @@
     $query = "SELECT * FROM products";
     $search = $connect->query($query);
     $resSearch = $search->num_rows;
+
+    $adminSearch = "SELECT * FROM adm_info WHERE first_adm=1";
+    $exeAdmSearch = $connect->query($adminSearch);
+    $loadAdmResults = $exeAdmSearch->fetch_object();
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +28,7 @@
             </div>
 
             <nav class="desktop-menu flex-row-space-around">
-                <a class="transform-in-button" href="">
+                <a class="transform-in-button" href="https://api.whatsapp.com/send/?phone=55<?php print $loadAdmResults->cell_number; ?>&text=Vim através site Dom of Music, e gostaria de ser atendido(a) por um de seus vendedores!&type=phone_number&app_absent=0">
                     <img src="./assets/img/wpp-logo.png" alt=""> Atendimento
                 </a>
             </nav>
@@ -212,6 +216,7 @@
             <img src="./assets/img/big-logo.png" alt="">
             <p>&copy;2023.2 - Dom of Music</p>
             <p>Developed by <a href="https://github.com/DerickCarvalho">Derick Carvalho</a></p>
+            <p>Admin page -> <a href="./login-adm.html">LogIn</a></p>
         </div>
 
         <?php
