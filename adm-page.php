@@ -220,13 +220,13 @@
                     <select class="default-input" name="category" id="category" required>
                         <option value="">Categoria</option>
                         <option value="acustic_guitar">Violões</option>
-                        <option value="guitars">Guitarras</option>
+                        <option value="guitar">Guitarras</option>
                         <option value="keyboard_instruments">Instrumentos de Teclas</option>
                         <option value="drums">Baterias</option>
                         <option value="accessories">Acessórios</option>
                     </select>
-                    <textarea class="default-input" name="specs" id="specs" cols="30" rows="3" required></textarea>
-                    <textarea class="default-input" name="desc" id="desc" cols="30" rows="3" required></textarea>
+                    <textarea class="default-input" name="specs" id="specs" cols="30" rows="3" required placeholder="Especificações"></textarea>
+                    <textarea class="default-input" name="desc" id="desc" cols="30" rows="3" required placeholder="Descrição"></textarea>
                     <input class="default-button" type="submit" value="Enviar">
                 </form>
             </main>
@@ -702,13 +702,13 @@
                         <select class="default-input" name="category" id="category" required>
                             <option value="">Categoria</option>
                             <option value="acustic_guitar">Violões</option>
-                            <option value="guitars">Guitarras</option>
+                            <option value="guitar">Guitarras</option>
                             <option value="keyboard_instruments">Instrumentos de Teclas</option>
                             <option value="drums">Baterias</option>
                             <option value="accessories">Acessórios</option>
                         </select>
-                        <textarea class="default-input" name="specs" id="specs" cols="30" rows="3" required></textarea>
-                        <textarea class="default-input" name="desc" id="desc" cols="30" rows="3" required></textarea>
+                        <textarea class="default-input" name="specs" id="specs" cols="30" rows="3" required placeholder="Especificações"></textarea>
+                        <textarea class="default-input" name="desc" id="desc" cols="30" rows="3" required placeholder="Descrição"></textarea>
                         <input class="default-button" type="submit" value="Enviar">
                     </form>
                 </main>

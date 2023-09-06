@@ -197,7 +197,9 @@
                         <p class="price-desc">10x de 209,99</p>
                     </a>
 
-                <?php } else { while ($loadProds = $search->fetch_object()) { ?>
+                <?php 
+                    } else { while ($loadProds = $search->fetch_object()) { 
+                ?>
 
                     <a href="./prod-info.php?id=<?php print $loadProds->id; ?>" class="prod text-center flex-colum-center">
                         <img src="<?php print $loadProds->img_url ?>" alt="">
@@ -225,7 +227,7 @@
                 $user_sugest = $_POST['text_sugest'];
 
                 if ($user_name != "" && $user_sugest != "") {
-                    $sugQuery = "INSERT INTO sugests (user_name, user_sugest, status) VALUES ('$user_name','$user_sugest', 0)";
+                    $sugQuery = "INSERT INTO sugests (user_name, user_sugest, situation) VALUES ('$user_name','$user_sugest', 0)";
                     try {
                         $cadSugest = $connect->query($sugQuery);
                         print "<script>alert('Agradecemos sua sugestão!');</script>";

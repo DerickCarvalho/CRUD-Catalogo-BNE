@@ -159,6 +159,7 @@
 }
 
 .buy-button {
+    text-decoration: none; 
     background: #ffffff;
     border: 2px solid #108a00;
     color: #0b5c00;
@@ -257,6 +258,7 @@ header {
 }
 .especs {
     font-size: 18px;
+    width: 50%;
 }
 .other-prods {
     width: 100%;
